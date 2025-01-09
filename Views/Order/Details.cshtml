@@ -15,8 +15,8 @@
     <tbody>
         @foreach (var item in Model.Items)
         {
-            <tr>
-                <td>
+            <tr class="align-items-center">
+                <td class="text-center">
                     @if (!string.IsNullOrEmpty(item.Product?.ImageUrl))
                     {
                         <img src="@item.Product.ImageUrl" alt="@item.Product.Name" class="img-fluid rounded" style="max-width: 100px; height: auto;" />

@@ -46,10 +46,12 @@ namespace RobustEcommerceApp.Controllers
           [SwaggerOperation(Summary = "Adds a product to the cart.")]
           public async Task<IActionResult> AddToCart(int productId)
           {
-               var user = await _userManager.GetUserAsync(User);
-               if (string.IsNullOrEmpty(user?.Id))
-                    return Unauthorized("User is not authenticated.");
+               if (!User.Identity.IsAuthenticated)
+               {
+                    return Challenge(); // Redirects to the login page if the user is not authenticated
+               }
 
+               var user = await _userManager.GetUserAsync(User);
                var product = await _context.Products.FindAsync(productId);
                if (product == null)
                     return NotFound("Product not found.");

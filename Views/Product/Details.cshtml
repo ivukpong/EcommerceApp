@@ -8,10 +8,15 @@
     <img src="@Model.ImageUrl" alt="@Model.Name" class="img-fluid" />
 </div>
 
-<form asp-controller="Cart" asp-action="AddToCart" asp-route-id="@Model.Id" method="post">
-    <button type="submit" class="btn btn-success my-3">Add to Cart</button>
-</form>
-
+@if (User.Identity.IsAuthenticated)
+{
+    <form asp-controller="Cart" asp-action="AddToCart" asp-route-id="@Model.Id" method="post">
+        <button type="submit" class="btn btn-success my-3">Add to Cart</button>
+    </form>
+}
 <a href="@Url.Action("Index", "Product")" class="btn btn-primary">Back to Product List</a>
-<a href="@Url.Action("Edit", "Product", new { id = Model.Id })" class="btn btn-secondary">Edit</a>
-<a href="@Url.Action("Delete", "Product", new { id = Model.Id })" class="btn btn-danger">Delete</a>
+@if (User.Identity.IsAuthenticated)
+{
+     <a href="@Url.Action("Edit", "Product", new { id = Model.Id })" class="btn btn-secondary">Edit</a>
+     <a href="@Url.Action("Delete", "Product", new { id = Model.Id })" class="btn btn-danger">Delete</a>
+}
